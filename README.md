@@ -1,60 +1,54 @@
 <p align="center">
-	<img src="./assets/banner.svg" width="800px">
+	<img src="./assets/banner.svg" >
 </p>
 
-<h1 align='center'>PageSpeed Insights for README</h1>
+<h1 align='center'>PageSpeed Insights scores to SVG</h1>
 
 
-> Embed your website's pagespeed score to your readme
+<h2 align='center'>Generate an SVG of your website's PageSpeed Insights scores</h2>
 
-
-### About PageSpeed Insights
-PageSpeed Insights analyzes the content of a web page, then generates suggestions to make that page faster. [Learn more](https://developers.google.com/speed/docs/insights/about/).
-
-
-## Info
 
 ### Guages
 <p align="center">
-	<img width="800px" src="./assets/guages.svg">
+	<img src="./assets/guages.svg">
 </p>
 
 ### PWA
 <p align="center">
-	<img width="800px" src="./assets/pwa.svg">
+	<img src="./assets/pwa.svg">
 </p>
 
 ## API and Usage
 
-__Important note: Do not embed url to readme, instead embed generated svg__
-- It takes time to perform audits of website. So embedding it directly in readme would not render due to server timeout. Instead you must first visit and download the svg from the api (by simply visiting api url with desired parameters). And then embed that svg to your README files.
-- Typically it takes 10-15 seconds to obtain the results from pagespeed api
+__Important note: Do not embed url, instead embed generated svg__
+- It takes time to perform audits of website. So embedding it directly would not render due to server timeout. Instead you must first visit and download the svg from the API with the desired parameters. And then embed that svg to your files.
+- Typically it takes a few seconds to obtain the results from the pagespeed API
 - Some servers don't allow (eg. google.com) or delay (eg. cloudflare) pagespeed crawler, so it may result in unexpected results.
-- The result may fluctuate slightly sometimes.
+- The results may fluctuate slightly sometimes, you can use the ```tests``` parameter to get more accurate perfomance audit results.
 
 ### API url
-The api is called from `https://pagespeed-insights.herokuapp.com`
+The API is called from `https://pagespeed-insights-svg.openode.dev`
 
 ### Simple usage
 In simple form it will return result for all categories for desktop version of your website. Replace `your_website_url` with your website's url
 ```md
-https://pagespeed-insights.herokuapp.com?url=your_website_url
+https://pagespeed-insights-svg.openode.dev/?url=your_website_url
 ```
 For example
 ```md
-https://pagespeed-insights.herokuapp.com?url=https://ankurparihar.github.io
+https://pagespeed-insights-svg.openode.dev/?url=https://ankurparihar.github.io
 ```
 
 ### Theme
 Default result is theme-agnostic i.e. looks good in both light and dark environment. But you can force one of two additional themes that are `light` and `dark`.
 ```md
-https://pagespeed-insights.herokuapp.com?url=your_website_url&theme=dark
+https://pagespeed-insights-svg.openode.dev/?url=your_website_url&theme=dark
 ```
 
 ### Strategy
 Strategy specifies the type of device your website is audited for. You can specify strategy as either `mobile` or `desktop`. If none is specified `desktop` is chosen
 ```md
-https://pagespeed-insights.herokuapp.com?url=your_website_url&strategy=mobile
+https://pagespeed-insights-svg.openode.dev/?url=your_website_url&strategy=mobile
 ```
 
 ### Category
@@ -77,31 +71,31 @@ For example
 
 #### Only performance
 ```md
-https://pagespeed-insights.herokuapp.com?url=your_website_url&categories=16
+https://pagespeed-insights-svg.openode.dev/?url=your_website_url&categories=16
 ```
 
 #### All but PWA
 ```md
-https://pagespeed-insights.herokuapp.com?url=your_website_url&categories=30
+https://pagespeed-insights-svg.openode.dev/?url=your_website_url&categories=30
 ```
 
 
 ### Accuracy
 
-Performance is volatile so you can request up to 3 performance tests to retrieve more precise results
+Performance is volatile so you can request up to 3 performance audits to retrieve more precise results
 ```md
-https://pagespeed-insights.herokuapp.com?url=your_website_url&tests=30
+https://pagespeed-insights-svg.openode.dev/?url=your_website_url&tests=3
 ```
 
 ### Embedding into readme
 After downloading svg you can embed into readme as following
-- markdown method
-```
+- markdown
+```markdown
 ![alt text](path/to/svg "tooltip text")
 ```
-- html method
+- HTML
 ```html
-<p align="center">	<!-- (optional) center align -->
+<p align="center">
     <img src="/path/to/svg" width="XXXpx">
 </p>
 ```
@@ -110,4 +104,8 @@ After downloading svg you can embed into readme as following
 - [pagespeed.yml](.github/workflows/pagespeed.yml)
 
 ### Example
-- [ankurparihar.github.io](https://github.com/ankurparihar/ankurparihar.github.io#readme)
+- [Bucket Listy web app README](https://github.com/Correia-jpv/Bucket-listy#development)
+
+### Resources
+
+- [Cloud hosted on opeNode.io](https://www.openode.io/)
