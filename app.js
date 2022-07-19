@@ -5,10 +5,12 @@ const express = require("express"),
 	app = express(),
 	fetch = require("node-fetch"),
 	port = process.env.PORT || 3000,
-	API_KEY = process.env.API_KEY;
+	API_KEY = process.env.API_KEY,
+	moment = require("moment");
 
 app.listen(port, () => {
-	console.log(`lighthouse-stats app listening at PORT ${port}`);
+	const timeNow = moment().format("Do MMM YY, h:mm:ss");
+	console.log(`${timeNow}> lighthouse-stats app listening at PORT ${port}`);
 });
 
 app.get("/", async (req, res) => {
@@ -41,7 +43,12 @@ app.get("/", async (req, res) => {
 	const getPerformance = async () => {
 		if ((categories & 16) === 16) {
 			for (let i = 0; i < performanceTests; i++) {
-				console.log("Sending performance request #" + (i + 1));
+				const timeNow = moment().format("Do MMM YY, h:mm:ss");
+				console.log(
+					`${timeNow}> ${
+						queryObject.url
+					}(${strategy}): Sending performance request #${i + 1}`
+				);
 				await fetch(pagespeedQueryURL + `category=performance`)
 					.then((response) => response.json())
 					.then((json) => {
@@ -53,12 +60,14 @@ app.get("/", async (req, res) => {
 						);
 					})
 					.catch((err) => {
-						// console.log(err)
+						console.log(err);
 					})
 					.finally(() => {
 						procedure--;
 						if (procedure === 0)
 							proceed(
+								queryObject.url,
+								strategy,
 								performance,
 								accessibility,
 								best_practices,
@@ -76,7 +85,10 @@ app.get("/", async (req, res) => {
 	// accessibility
 	const getA11y = async () => {
 		if ((categories & 8) === 8) {
-			console.log("Sending a11y request");
+			const timeNow = moment().format("Do MMM YY, h:mm:ss");
+			console.log(
+				`${timeNow}> ${queryObject.url}(${strategy}): Sending a11y request`
+			);
 			await fetch(pagespeedQueryURL + `category=accessibility`)
 				.then((response) => response.json())
 				.then((json) => {
@@ -85,12 +97,14 @@ app.get("/", async (req, res) => {
 					);
 				})
 				.catch((err) => {
-					// console.log(err)
+					console.log(err);
 				})
 				.finally(() => {
 					procedure--;
 					if (procedure === 0)
 						proceed(
+							queryObject.url,
+							strategy,
 							performance,
 							accessibility,
 							best_practices,
@@ -107,7 +121,10 @@ app.get("/", async (req, res) => {
 	// best practices
 	const getBestPractices = async () => {
 		if ((categories & 4) === 4) {
-			console.log("Sending best practices request");
+			const timeNow = moment().format("Do MMM YY, h:mm:ss");
+			console.log(
+				`${timeNow}> ${queryObject.url}(${strategy}): Sending best practices request`
+			);
 			await fetch(pagespeedQueryURL + `category=best-practices`)
 				.then((response) => response.json())
 				.then((json) => {
@@ -116,12 +133,14 @@ app.get("/", async (req, res) => {
 					);
 				})
 				.catch((err) => {
-					// console.log(err)
+					console.log(err);
 				})
 				.finally(() => {
 					procedure--;
 					if (procedure === 0)
 						proceed(
+							queryObject.url,
+							strategy,
 							performance,
 							accessibility,
 							best_practices,
@@ -138,7 +157,10 @@ app.get("/", async (req, res) => {
 	const getSEO = async () => {
 		// seo
 		if ((categories & 2) === 2) {
-			console.log("Sending SEO request");
+			const timeNow = moment().format("Do MMM YY, h:mm:ss");
+			console.log(
+				`${timeNow}> ${queryObject.url}(${strategy}): Sending SEO request`
+			);
 			await fetch(pagespeedQueryURL + `category=seo`)
 				.then((response) => response.json())
 				.then((json) => {
@@ -147,12 +169,14 @@ app.get("/", async (req, res) => {
 					);
 				})
 				.catch((err) => {
-					// console.log(err)
+					console.log(err);
 				})
 				.finally(() => {
 					procedure--;
 					if (procedure === 0)
 						proceed(
+							queryObject.url,
+							strategy,
 							performance,
 							accessibility,
 							best_practices,
@@ -169,7 +193,10 @@ app.get("/", async (req, res) => {
 	// pwa
 	const getPWA = async () => {
 		if ((categories & 1) === 1) {
-			console.log("Sending PWA request");
+			const timeNow = moment().format("Do MMM YY, h:mm:ss");
+			console.log(
+				`${timeNow}> ${queryObject.url}(${strategy}): Sending PWA request`
+			);
 			await fetch(pagespeedQueryURL + `category=pwa`)
 				.then((response) => response.json())
 				.then((json) => {
@@ -210,12 +237,14 @@ app.get("/", async (req, res) => {
 					if (optimized === optimized_total) pwa |= 4;
 				})
 				.catch((err) => {
-					// console.log(err)
+					console.log(err);
 				})
 				.finally(() => {
 					procedure--;
 					if (procedure === 0)
 						proceed(
+							queryObject.url,
+							strategy,
 							performance,
 							accessibility,
 							best_practices,
@@ -250,6 +279,8 @@ const guageClass = (score) => {
 };
 
 const proceed = (
+	url,
+	strategy,
 	performance,
 	accessibility,
 	best_practices,
@@ -259,16 +290,11 @@ const proceed = (
 	categories,
 	theme
 ) => {
+	const timeNow = moment().format("Do MMM YY, h:mm:ss");
 	console.log(
-		`Scores: ${performance} performance; ${accessibility} accessibility; ${best_practices} best practices; ${seo} seo; ${pwa} pwa`
+		`${timeNow}> ${url}(${strategy}): ${performance} performance; ${accessibility} accessibility; ${best_practices} best practices; ${seo} seo; ${pwa} pwa`
 	);
-	// test
-	// performance = 95
-	// accessibility = 100
-	// best_practices = 76
-	// seo = 40
-	// pwa = 3
-	// prepare svg and send
+
 	let procedure =
 		((categories & 1) > 0) +
 		((categories & 2) > 0) +
@@ -571,5 +597,6 @@ const proceed = (
 	</svg>`;
 	res.setHeader("Content-Type", "image/svg+xml");
 	res.send(svg);
-	// res.send(`performance: ${performance}, accessibility: ${accessibility}, best-practices: ${best_practices}, seo: ${seo}, pwa: {fast and reliable: ${fast_reliable}/${fast_reliable_total}, installable: ${installable}/${installable_total}, optimized: ${optimized}/${optimized_total}}`)
 };
+
+module.exports = app;
