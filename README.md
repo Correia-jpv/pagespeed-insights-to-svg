@@ -27,28 +27,28 @@ __Important note: Do not embed url, instead embed generated svg__
 - The results may fluctuate slightly sometimes, you can use the ```tests``` parameter to get more accurate perfomance audit results.
 
 ### API url
-The API is called from `https://pagespeed-insights-svg.openode.dev`
+The API is called from `https://pagespeed-insights-svg.glitch.me`
 
 ### Simple usage
 In simple form it will return result for all categories for desktop version of your website. Replace `your_website_url` with your website's url
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=your_website_url
+https://pagespeed-insights-svg.glitch.me/?url=your_website_url
 ```
 For example
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=https://ankurparihar.github.io
+https://pagespeed-insights-svg.glitch.me/?url=https://correiajpv.com
 ```
 
 ### Theme
 Default result is theme-agnostic i.e. looks good in both light and dark environment. But you can force one of two additional themes that are `light` and `dark`.
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=your_website_url&theme=dark
+https://pagespeed-insights-svg.glitch.me/?url=your_website_url&theme=dark
 ```
 
 ### Strategy
 Strategy specifies the type of device your website is audited for. You can specify strategy as either `mobile` or `desktop`. If none is specified `desktop` is chosen
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=your_website_url&strategy=mobile
+https://pagespeed-insights-svg.glitch.me/?url=your_website_url&strategy=mobile
 ```
 
 ### Category
@@ -71,12 +71,12 @@ For example
 
 #### Only performance
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=your_website_url&categories=16
+https://pagespeed-insights-svg.glitch.me/?url=your_website_url&categories=16
 ```
 
 #### All but PWA
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=your_website_url&categories=30
+https://pagespeed-insights-svg.glitch.me/?url=your_website_url&categories=30
 ```
 
 
@@ -84,7 +84,7 @@ https://pagespeed-insights-svg.openode.dev/?url=your_website_url&categories=30
 
 Performance is volatile so you can request up to 3 performance audits to retrieve more precise results
 ```md
-https://pagespeed-insights-svg.openode.dev/?url=your_website_url&tests=3
+https://pagespeed-insights-svg.glitch.me/?url=your_website_url&tests=3
 ```
 
 ### Embedding into readme
@@ -108,4 +108,4 @@ After downloading svg you can embed into readme as following
 
 ### Resources
 
-- [Cloud hosted on opeNode.io](https://www.openode.io/)
+- [Cloud hosted on Glitch](https://www.glitch.com/)
